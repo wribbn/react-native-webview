@@ -128,8 +128,8 @@ export type WebViewMessageEvent = NativeSyntheticEvent<WebViewMessage>;
 
 export type WebViewErrorEvent = NativeSyntheticEvent<WebViewError>;
 
-export type DataDetectorTypes
-  = | 'phoneNumber'
+export type DataDetectorTypes =
+  | 'phoneNumber'
   | 'link'
   | 'address'
   | 'calendarEvent'
@@ -400,7 +400,6 @@ export interface IOSWebViewProps extends WebViewSharedProps {
    * @platform ios
    */
   directionalLockEnabled?: boolean;
-
 }
 
 export interface AndroidWebViewProps extends WebViewSharedProps {
@@ -506,6 +505,10 @@ export interface AndroidWebViewProps extends WebViewSharedProps {
    * @platform android
    */
   mixedContentMode?: 'never' | 'always' | 'compatibility';
+
+  // Custom
+  disableBuiltInZoomControls?: boolean;
+  injectJavaScript?: string;
 }
 
 export interface WebViewSharedProps extends ViewProps {
@@ -521,12 +524,12 @@ export interface WebViewSharedProps extends ViewProps {
     errorDomain: string | undefined,
     errorCode: number,
     errorDesc: string,
-  ) => ReactElement; // view to show if there's an error
+  ) => ReactElement<any>; // view to show if there's an error
 
   /**
    * Function that returns a loading indicator.
    */
-  renderLoading?: () => ReactElement;
+  renderLoading?: () => ReactElement<any>;
 
   /**
    * Function that is invoked when the `WebView` has finished loading.
