@@ -50,6 +50,7 @@ This document lays out the current public properties and methods for the React N
 - [`cacheEnabled`](Reference.md#cacheEnabled)
 - [`pagingEnabled`](Reference.md#pagingEnabled)
 - [`allowsLinkPreview`](Reference.md#allowsLinkPreview)
+- [`sharedCookiesEnabled`](Reference.md#sharedCookiesEnabled)
 
 ## Methods Index
 
@@ -96,9 +97,9 @@ _Note that using static HTML requires the WebView property [originWhiteList](Ref
 
 Controls whether to adjust the content inset for web views that are placed behind a navigation bar, tab bar, or toolbar. The default value is `true`.
 
-| Type | Required |
-| ---- | -------- |
-| bool | No       |
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | iOS      |
 
 ---
 
@@ -154,28 +155,29 @@ Example:
 
 ```jsx
 <WebView
-   source={{ uri: "https://facebook.github.io/react-native" }}
-   onError={(syntheticEvent) => {
-     const { nativeEvent } = syntheticEvent
-     console.warn('WebView error: ', nativeEvent)
-   }}
- />
+  source={{ uri: 'https://facebook.github.io/react-native' }}
+  onError={syntheticEvent => {
+    const { nativeEvent } = syntheticEvent;
+    console.warn('WebView error: ', nativeEvent);
+  }}
+/>
 ```
 
 Function passed to `onError` is called with a SyntheticEvent wrapping a nativeEvent with these properties:
 
- ```
- canGoBack
- canGoForward
- code
- description
- didFailProvisionalNavigation
- domain
- loading
- target
- title
- url
 ```
+canGoBack
+canGoForward
+code
+description
+didFailProvisionalNavigation
+domain
+loading
+target
+title
+url
+```
+
 > **_Note_**
 > Domain is only used on iOS
 
@@ -193,8 +195,8 @@ Example:
 
 ```jsx
 <WebView
-  source={{uri: 'https://facebook.github.io/react-native'}}
-  onLoad={(syntheticEvent) => {
+  source={{ uri: 'https://facebook.github.io/react-native' }}
+  onLoad={syntheticEvent => {
     const { nativeEvent } = syntheticEvent;
     this.url = nativeEvent.url;
   }}
@@ -203,13 +205,13 @@ Example:
 
 Function passed to `onLoad` is called with a SyntheticEvent wrapping a nativeEvent with these properties:
 
- ```
- canGoBack
- canGoForward
- loading
- target
- title
- url
+```
+canGoBack
+canGoForward
+loading
+target
+title
+url
 ```
 
 ---
@@ -222,13 +224,12 @@ Function that is invoked when the `WebView` load succeeds or fails.
 | -------- | -------- |
 | function | No       |
 
-
 Example:
 
 ```jsx
 <WebView
-  source={{uri: 'https://facebook.github.io/react-native'}}
-  onLoadEnd={(syntheticEvent) => {
+  source={{ uri: 'https://facebook.github.io/react-native' }}
+  onLoadEnd={syntheticEvent => {
     // update component to be aware of loading status
     const { nativeEvent } = syntheticEvent;
     this.isLoading = nativeEvent.loading;
@@ -238,13 +239,13 @@ Example:
 
 Function passed to `onLoadEnd` is called with a SyntheticEvent wrapping a nativeEvent with these properties:
 
- ```
- canGoBack
- canGoForward
- loading
- target
- title
- url
+```
+canGoBack
+canGoForward
+loading
+target
+title
+url
 ```
 
 ---
@@ -257,13 +258,12 @@ Function that is invoked when the `WebView` starts loading.
 | -------- | -------- |
 | function | No       |
 
-
 Example:
 
 ```jsx
 <WebView
-  source={{uri: 'https://facebook.github.io/react-native/='}}
-  onLoadStart={(syntheticEvent) => {
+  source={{ uri: 'https://facebook.github.io/react-native/=' }}
+  onLoadStart={syntheticEvent => {
     // update component to be aware of loading status
     const { nativeEvent } = syntheticEvent;
     this.isLoading = nativeEvent.loading;
@@ -273,13 +273,13 @@ Example:
 
 Function passed to `onLoadStart` is called with a SyntheticEvent wrapping a nativeEvent with these properties:
 
- ```
- canGoBack
- canGoForward
- loading
- target
- title
- url
+```
+canGoBack
+canGoForward
+loading
+target
+title
+url
 ```
 
 ---
@@ -301,23 +301,23 @@ Example:
 
 ```jsx
 <WebView
-   source={{ uri: "https://facebook.github.io/react-native" }}
-   onLoadProgress={({ nativeEvent }) => {
-     this.loadingProgress = nativeEvent.progress
-   }}
- />
+  source={{ uri: 'https://facebook.github.io/react-native' }}
+  onLoadProgress={({ nativeEvent }) => {
+    this.loadingProgress = nativeEvent.progress;
+  }}
+/>
 ```
 
 Function passed to `onLoadProgress` is called with a SyntheticEvent wrapping a nativeEvent with these properties:
 
- ```
- canGoBack
- canGoForward
- loading
- progress
- target
- title
- url
+```
+canGoBack
+canGoForward
+loading
+progress
+target
+title
+url
 ```
 
 ---
@@ -348,23 +348,24 @@ Example:
 
 ```jsx
 <WebView
-   source={{ uri: "https://facebook.github.io/react-native" }}
-   onNavigationStateChange={(navState) => {
+  source={{ uri: 'https://facebook.github.io/react-native' }}
+  onNavigationStateChange={navState => {
     // Keep track of going back navigation within component
     this.canGoBack = navState.canGoBack;
-}} />
+  }}
+/>
 ```
 
 The `navState` object includes these properties:
 
- ```
- canGoBack
- canGoForward
- loading
- navigationType
- target
- title
- url
+```
+canGoBack
+canGoForward
+loading
+navigationType
+target
+title
+url
 ```
 
 ---
@@ -382,9 +383,9 @@ Example:
 ```jsx
 //only allow URIs that begin with https:// or git://
 <WebView
-   source={{ uri: "https://facebook.github.io/react-native" }}
-   originWhitelist={['https://*', 'git://*']}
- />
+  source={{ uri: 'https://facebook.github.io/react-native' }}
+  originWhitelist={['https://*', 'git://*']}
+/>
 ```
 
 ---
@@ -397,17 +398,16 @@ Function that returns a view to show if there's an error.
 | -------- | -------- |
 | function | No       |
 
-
 Example:
 
 ```jsx
 <WebView
-   source={{ uri: "https://facebook.github.io/react-native" }}
-   renderError={(errorName) => <Error name={errorName} /> }
- />
+  source={{ uri: 'https://facebook.github.io/react-native' }}
+  renderError={errorName => <Error name={errorName} />}
+/>
 ```
 
-The function passed to `renderError` will be called with the name of the error 
+The function passed to `renderError` will be called with the name of the error
 
 ---
 
@@ -419,15 +419,14 @@ Function that returns a loading indicator. The startInLoadingState prop must be 
 | -------- | -------- |
 | function | No       |
 
-
 Example:
 
 ```jsx
 <WebView
-   source={{ uri: "https://facebook.github.io/react-native" }}
-   startInLoadingState={true}
-   renderLoading={() => <Loading /> }
- />
+  source={{ uri: 'https://facebook.github.io/react-native' }}
+  startInLoadingState={true}
+  renderLoading={() => <Loading />}
+/>
 ```
 
 ---
@@ -446,7 +445,7 @@ On iOS, when [`useWebKit=true`](Reference.md#usewebkit), this prop will not work
 
 ### `onShouldStartLoadWithRequest`
 
-Function that allows custom handling of any web view requests. Return `true` from the function to continue loading the request and `false` to stop loading. 
+Function that allows custom handling of any web view requests. Return `true` from the function to continue loading the request and `false` to stop loading.
 
 On Android, is not called on the first load.
 
@@ -458,35 +457,10 @@ Example:
 
 ```jsx
 <WebView
-  source={{ uri: "https://facebook.github.io/react-native" }}
-  onShouldStartLoadWithRequest={(request) => {
+  source={{ uri: 'https://facebook.github.io/react-native' }}
+  onShouldStartLoadWithRequest={request => {
     // Only allow navigating within this website
-    return request.url.startsWith("https://facebook.github.io/react-native")
-  }}
-/>
-```
-
-The `request` object includes these properties:
-
-```
-title
-url
-loading
-target
-canGoBack
-canGoForward
-lockIdentifier
-navigationType
-```
-
-Example:
-
-```jsx
-<WebView
-  source={{ uri: "https://facebook.github.io/react-native" }}
-  onShouldStartLoadWithRequest={(request) => {
-    // Only allow navigating within this website
-    return request.url.startsWith("https://facebook.github.io/react-native")
+    return request.url.startsWith('https://facebook.github.io/react-native');
   }}
 />
 ```
@@ -528,9 +502,9 @@ Example:
 
 ```jsx
 <WebView
-   source={{ uri: "https://facebook.github.io/react-native" }}
-   style={{marginTop: 20}}
- />
+  source={{ uri: 'https://facebook.github.io/react-native' }}
+  style={{ marginTop: 20 }}
+/>
 ```
 
 ---
@@ -855,6 +829,16 @@ If the value of this property is true, the scroll view stops on multiples of the
 ### `allowsLinkPreview`
 
 A Boolean value that determines whether pressing on a link displays a preview of the destination for the link. In iOS this property is available on devices that support 3D Touch. In iOS 10 and later, the default value is true; before that, the default value is false.
+
+| Type    | Required | Platform |
+| ------- | -------- | -------- |
+| boolean | No       | iOS      |
+
+---
+
+### `sharedCookiesEnabled`
+
+Set `true` if shared cookies from `[NSHTTPCookieStorage sharedHTTPCookieStorage]` should used for every load request in the `RNCWKWebView`. The default value is `false`.
 
 | Type    | Required | Platform |
 | ------- | -------- | -------- |
