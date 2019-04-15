@@ -128,8 +128,8 @@ export type WebViewMessageEvent = NativeSyntheticEvent<WebViewMessage>;
 
 export type WebViewErrorEvent = NativeSyntheticEvent<WebViewError>;
 
-export type DataDetectorTypes =
-  | 'phoneNumber'
+export type DataDetectorTypes
+  = | 'phoneNumber'
   | 'link'
   | 'address'
   | 'calendarEvent'
@@ -216,6 +216,7 @@ export interface CommonNativeWebViewProps extends ViewProps {
   onLoadingProgress: (event: WebViewProgressEvent) => void;
   onLoadingStart: (event: WebViewNavigationEvent) => void;
   onMessage: (event: WebViewMessageEvent) => void;
+  onNavigationStateChange: (event: WebViewNavigationEvent) => void;
   onShouldStartLoadWithRequest: (event: WebViewNavigationEvent) => void;
   scalesPageToFit?: boolean;
   showsHorizontalScrollIndicator?: boolean;
@@ -524,11 +525,13 @@ export interface WebViewSharedProps extends ViewProps {
     errorDomain: string | undefined,
     errorCode: number,
     errorDesc: string,
-  ) => ReactElement<any>; // view to show if there's an error
+  ) => // eslint-disable-next-line
+  ReactElement<any>; // view to show if there's an error
 
   /**
    * Function that returns a loading indicator.
    */
+  // eslint-disable-next-line
   renderLoading?: () => ReactElement<any>;
 
   /**
