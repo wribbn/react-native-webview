@@ -53,4 +53,5 @@ android/gradle
 android/gradlew
 android/gradlew.bat
 
-lib/
+# Removed for demo
+# lib/
